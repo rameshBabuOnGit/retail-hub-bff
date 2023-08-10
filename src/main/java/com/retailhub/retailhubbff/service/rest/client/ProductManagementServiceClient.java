@@ -17,6 +17,7 @@ public class ProductManagementServiceClient {
     private final String baseUri;
 
     private final String GET_PRODUCT_DETAILS_URL = "/product-management-service/product/product-details";
+    private final String USER_AUTH_URL = "/product-management-service/user/authentication/{userName}?password={password}";
 
     public ProductManagementServiceClient(RestTemplate restTemplate, @Value("${product.management.service.base.uri}") String baseUri) {
         this.restTemplate = restTemplate;
@@ -29,7 +30,15 @@ public class ProductManagementServiceClient {
         return Arrays.asList(responseEntity.getBody());
     }
 
+    public String authenticateUser(String userName, String password) {
+        return restTemplate.getForObject(getUserAuthUrl(), String.class, userName, password);
+    }
+
     protected String getProductDetailsUrl() {
         return baseUri + GET_PRODUCT_DETAILS_URL;
+    }
+
+    protected String getUserAuthUrl() {
+        return baseUri + USER_AUTH_URL;
     }
 }
