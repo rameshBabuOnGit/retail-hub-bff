@@ -1,6 +1,7 @@
 package com.retailhub.retailhubbff.service;
 
 import com.retailhub.retailhubbff.domain.dto.ProductDetailDTO;
+import com.retailhub.retailhubbff.domain.dto.UserDetailDTO;
 import com.retailhub.retailhubbff.exception.InvalidUserException;
 import com.retailhub.retailhubbff.service.rest.client.ProductManagementServiceClient;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class ProductManagementService {
         return productManagementServiceClient.retrieveProductDetails();
     }
 
-    public String authenticateUser(String userName, String password) {
+    public UserDetailDTO authenticateUser(String userName, String password) {
         try {
             return productManagementServiceClient.authenticateUser(userName, password);
         } catch (HttpStatusCodeException httpStatusCodeException) {

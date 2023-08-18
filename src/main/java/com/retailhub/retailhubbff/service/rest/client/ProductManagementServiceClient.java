@@ -1,6 +1,7 @@
 package com.retailhub.retailhubbff.service.rest.client;
 
 import com.retailhub.retailhubbff.domain.dto.ProductDetailDTO;
+import com.retailhub.retailhubbff.domain.dto.UserDetailDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,8 @@ public class ProductManagementServiceClient {
         return Arrays.asList(responseEntity.getBody());
     }
 
-    public String authenticateUser(String userName, String password) {
-        return restTemplate.getForObject(getUserAuthUrl(), String.class, userName, password);
+    public UserDetailDTO authenticateUser(String userName, String password) {
+        return restTemplate.getForObject(getUserAuthUrl(), UserDetailDTO.class, userName, password);
     }
 
     protected String getProductDetailsUrl() {
