@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class OrderHeaderDTO {
     private int orderId;
     private int userId;
-    private int totalOrderValue;
+    private BigDecimal totalOrderValue;
     private String orderStatus;
 }
