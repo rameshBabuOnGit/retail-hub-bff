@@ -1,6 +1,7 @@
 package com.retailhub.retailhubbff.service;
 
 import com.retailhub.retailhubbff.domain.dto.CartDetailsDTO;
+import com.retailhub.retailhubbff.exception.InvalidCartDetailsException;
 import com.retailhub.retailhubbff.service.rest.client.OrderManagementServiceClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,14 @@ public class OrderManagementService {
     }
 
     public void insertOrderDetails(CartDetailsDTO cartDetailsDTO) {
+        validateCartDetails(cartDetailsDTO);
         orderManagementServiceClient.sendCartDetails(cartDetailsDTO);
+    }
+
+    private void validateCartDetails(CartDetailsDTO cartDetailsDTO) {
+        if(cartDetailsDTO.getCartLineDetailsDTOList() == null || cartDetailsDTO.getCartLineDetailsDTOList().isEmpty()) {
+            throw new InvalidCartDetailsException("Cart details cannot be null or empty");
+        }
     }
 
     public List<CartDetailsDTO> retrieveCartDetails(int userId) {
@@ -31,6 +39,7 @@ public class OrderManagementService {
     }
 
     public ResponseEntity<Void> submitOrderDetails(CartDetailsDTO cartDetailsDTO) {
+        validateCartDetails(cartDetailsDTO);
         return orderManagementServiceClient.submitOrderDetails(cartDetailsDTO);
     }
 

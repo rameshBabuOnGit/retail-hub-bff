@@ -17,6 +17,11 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
         return new ResponseEntity<>(createExceptionInfoModel(request, exception), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(InvalidCartDetailsException.class)
+    public ResponseEntity<ExceptionInfoModel> invalidCartDetailsExceptionHandler(HttpServletRequest request, InvalidCartDetailsException exception) {
+        return new ResponseEntity<>(createExceptionInfoModel(request, exception), HttpStatus.BAD_REQUEST);
+    }
+
     private ExceptionInfoModel createExceptionInfoModel(HttpServletRequest request, Exception exception) {
         return new ExceptionInfoModel(request.getRequestURI(), exception);
     }

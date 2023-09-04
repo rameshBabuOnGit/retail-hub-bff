@@ -27,10 +27,17 @@ public class ProductManagementService {
 
     public UserDetailDTO authenticateUser(String userName, String password) {
         try {
+            validateUserName(userName);
             return productManagementServiceClient.authenticateUser(userName, password);
         } catch (HttpStatusCodeException httpStatusCodeException) {
             log.info(httpStatusCodeException.getResponseBodyAsString());
             throw new InvalidUserException("Invalid Username or password");
+        }
+    }
+
+    private void validateUserName(String userName) {
+        if(!userName.matches("^[a-zA-Z0-9_-]{3,16}$")) {
+            throw new InvalidUserException("Invalid Username");
         }
     }
 }
